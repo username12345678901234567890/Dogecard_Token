@@ -1,0 +1,81 @@
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+body{
+  padding: 25px;
+}
+.title {
+	color: #5C6AC4;
+}
+/* CSS */
+.button-12 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+  border-radius: 6px;
+  border: none;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  background: #6E6D70;
+  box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), inset 0px 0.5px 0.5px rgba(255, 255, 255, 0.5), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.12);
+  color: #DFDEDF;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-12:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+.button {
+  background-color: #0D2FDA; /* 하늘색 */
+  color: white; /* 버튼 텍스트 색상 */
+  border: none; /* 테두리 제거 */
+  border-radius: 50%; /* 원형으로 만들기 */
+  width: 50px; /* 버튼 너비 */
+  height: 50px; /* 버튼 높이 */
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px; /* 텍스트 크기 */
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #00BFFF; /* 호버 시 더 진한 하늘색 */
+}
+.box {
+  width: 300px;
+  height: 70px;
+  border: 2px solid black;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #EAEBF0;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+.box2 {
+  width: 300px;
+  height: 50px;
+  border: 2px solid black;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #EAEBF0;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+}

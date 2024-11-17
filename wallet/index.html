@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doge Hub Wallet</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@latest/dist/ethers.min.js"></script>
+    <img src="https://i.ibb.co/wwtHHdX/DOGE-CARD.png" alt="DOGE-CARD" border="0" width="10" height="300" class="center">
+    <h1 style="text-align:center">Doge Hub Wallet</h1>
+    <button class="button-12" role="button" id="create-wallet-button">Create Wallet</button>
+    <button class="button-12" role="button" id="wallet-login-button">I already have a wallet</button>
+    <script type="module">
+        import { providers, Wallet, utils, Contract } from "https://cdn.ethers.io/lib/ethers-5.2.esm.min.js";
+    </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.6.9/ethers.umd.min.js" integrity="sha512-Veaz5IU2iRpa0BBrJlJeRgfJ7OAHWtVJZTXvgdH7s3ffsLUChllMCqC0Bb+eeRxGlrZ06iYIE/R3KsciCrgv3A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+
+    <script>
+      document.getElementById("create-wallet-button").onclick = function () {
+		// 보안을 위해 쿠키에 프라이빗키를 저장하지 않고 home.html에 입장하면 privateKey를 요청
+	        const wallet = ethers.Wallet.createRandom();
+		alert("확인을 누르면 프라이빗키가 공개됩니다. 안전한 곳에 보관하고 유출되지 않게 조심하십시오");
+	        alert("당신의 프라이빗 키는 " + wallet.privateKey + " 입니다.");
+		window.location.href = 'home.html';
+
+       }
+      document.getElementById("wallet-login-button").onclick = function () {
+		alert("확인을 누르면 home 으로 이동합니다.")
+		window.location.href = 'home.html';
+       }
+    </script>
+    <p style="font-size: small" class="center"><b>Made by Sangyoon</b></p>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Doge Hub</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.1/dist/web3.min.js"></script>
+  </head>
+  <body>
+    <link rel="stylesheet" href="styles.css">
+    <img src="https://i.ibb.co/7JPPtQw/DOGE-CARD-TEXT.png" alt="DOGE-CARD-TEXT" border="0" width="50" height="250" class="center">
+    <div class="box">
+          <button class="button" role="button" id="ADDR">ADDR</button>
+          <button class="button" role="button" id="SEND">Send</button>
+          <button class="button" role="button" id="SYNC">SYNC</button>
+    </div>
+    <h>ㅤ</h>
+    <div class="box2">
+      <h id="USDT_balance">USDT: SYNC를 클릭해서 잔고를 업데이트 하세요</h>
+    </div>
+    <h>ㅤ</h>
+    <div class="box2">
+      <h id="DCD_balance">DCD: SYNC를 클릭해서 잔고를 업데이트 하세요</h>
+    </div>
+<script>
+  const web3 = new Web3('https://bsc-dataseed.binance.org/'); // BSC 네트워크
+  const privateKey = prompt("프라이빗키를 입력하세요") // 프라이빗키 받기
+  const account = web3.eth.accounts.privateKeyToAccount(privateKey);
+  const tokenAddress = '0x55d398326f99059fF775485246999027B3197955';
+  const tokenAddress1 = '0x7Dd2232A9b98dbEf5635145BEA2dAADDEDe4FC64';
+  const tokenABI = [
+    {
+        "constant": true,
+        "inputs": [{"name": "_owner", "type": "address"}],
+        "name": "balanceOf",
+        "outputs": [{"name": "balance", "type": "uint256"}],
+        "type": "function"
+      }
+    ];
+	document.getElementById('SYNC').onclick = function() {
+		getTokenBalance_USDT();
+		getTokenBalance_DOGECARD();
+	}
+	document.getElementById('SEND').onclick = function() {
+		let addr = prompt("누구에게 보낼건가요?");
+		let token_amount = prompt("얼마를 보낼건가요?");
+		let token_addr = prompt("무슨 토큰을 전송할건가요? (USDT or DOGECARD)");
+		if (token_addr === "USDT"){
+			token_addr = tokenAddress;
+		} else if ("DOGECARD") {
+			token_addr = tokenAddress1;
+		}
+		sendToken(token_addr, addr, token_amount);
+	}
+	document.getElementById('ADDR').onclick = function() {
+		alert(account.address);
+	}
+        const tokenContract = new web3.eth.Contract(tokenABI, tokenAddress);
+        const tokenContract1 = new web3.eth.Contract(tokenABI, tokenAddress1);
+
+        async function getTokenBalance_USDT() {
+            try {
+                const balance = await tokenContract.methods.balanceOf(account.address).call();
+                document.getElementById('USDT_balance').innerText = `USDT: ${balance}`;
+            } catch (error) {
+                document.getElementById('USDT_balance').innerText = 'USDT: 오류 발생';
+            }
+        }
+        async function getTokenBalance_DOGECARD() {
+            try {
+                const balance = await tokenContract1.methods.balanceOf(account.address).call();
+                document.getElementById('DCD_balance').innerText = `DOGE CARD: ${balance}`;
+            } catch (error) {
+                document.getElementById('DCD_balance').innerText = 'DOGE CARD: 오류 발생';
+            }
+        }
+    async function sendToken(tokenAddress, toAddress, amount) {
+        var contractAbi = [
+            {
+                "constant": false,
+                "inputs": [
+                    {"name": "_to", "type": "address"},
+                    {"name": "_value", "type": "uint256"}
+                ],
+                "name": "transfer",
+                "outputs": [{"name": "", "type": "bool"}],
+                "type": "function"
+            }
+        ];
+        var contract = new web3.eth.Contract(contractAbi, tokenAddress);
+        var data = contract.methods.transfer(toAddress, amount).encodeABI();
+        var tx = {
+            from: account.address,
+            to: tokenAddress,
+            data: data,
+            gas: 200000
+        };
+        var signedTx = await web3.eth.accounts.signTransaction(tx, privateKey);
+        var receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+        console.log('트랜잭션 결과:', receipt);
+        return receipt;
+    }
+</script>
+  </body>
+</html>
